@@ -24,7 +24,12 @@ app.post('/run-automation', async (req, res) => {
         Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
         Accept: 'application/vnd.github+json',
         },
-        body: JSON.stringify({ ref: 'RbaScript' }), // branch name
+        body: JSON.stringify({ 
+          ref: 'RbaScript',
+          inputs: {
+            testdata: JSON.stringify(payload)
+          }
+         }), // branch name
     }
     );
 
