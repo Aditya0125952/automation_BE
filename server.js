@@ -46,7 +46,7 @@ app.post('/run-automation', async (req, res) => {
       res.status(500).send(`❌ GitHub rejected request: ${response.status} - ${errorText}`);
     }
 
-  } catch (err: any) {
+  } catch (err) {
     res.status(500).send('Server error: ' + err.message);
   }
 });
