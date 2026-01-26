@@ -27,7 +27,7 @@ app.post('/run-automation', async (req, res) => {
         body: JSON.stringify({
           ref: "RbaScript",
           inputs: {
-            APPLICANTOVERRIDES: JSON.stringify(req.body.applicantOverrides || {})
+            applicantOverrides: JSON.stringify(req.body.applicantOverrides || {})
           }
         }),
         // branch name
