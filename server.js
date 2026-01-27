@@ -11,40 +11,47 @@ app.use(express.json());
 
 app.post('/run-automation', async (req, res) => {
   try {
+    const applicantOverrides = req.body.applicantOverrides || {};
 
-    if (!process.env.GITHUB_TOKEN) {
-      return res.status(500).send("❌ GITHUB_TOKEN not configured in server");
-    }
+    console.log("📨 RAW BODY FROM FE:", req.body);
+    console.log("📧 EMAIL RECEIVED:", applicantOverrides.email);
+
+    const feData = JSON.stringify({
+      email: applicantOverrides.email
+    });
+
+    console.log("🚀 SENDING TO GITHUB AS FE_DATA:", feData);
 
     const response = await fetch(
-    'https://api.github.com/repos/Aditya0125952/RBA_automation-script/actions/workflows/run-automation.yml/dispatches',
-    {
+      'https://api.github.com/repos/Aditya0125952/RBA_automation-script/actions/workflows/run-automation.yml/dispatches',
+      {
         method: 'POST',
         headers: {
-        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-        Accept: 'application/vnd.github+json',
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+          Accept: 'application/vnd.github+json',
         },
         body: JSON.stringify({
           ref: "RbaScript",
           inputs: {
-            FE_DATA: JSON.stringify(req.body.applicantOverrides || {})
+            FE_DATA: feData   // 🔥 Proper JSON string
           }
-        }),
-        // branch name
-    }
+        })
+      }
     );
+
+    const text = await response.text();
 
     if (response.status === 204) {
       res.send('✅ Automation REALLY triggered in GitHub!');
     } else {
-      const errorText = await response.text();
-      res.status(500).send(`❌ GitHub rejected request: ${response.status} - ${errorText}`);
+      res.status(500).send(`❌ GitHub rejected request: ${text}`);
     }
 
   } catch (err) {
     res.status(500).send('Server error: ' + err.message);
   }
 });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("Server running on", PORT));
