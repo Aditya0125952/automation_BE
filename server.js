@@ -19,8 +19,7 @@ app.post('/run-automation', async (req, res) => {
    const rawData = {
   applicantOverrides: {
     email: applicantOverrides.email
-  },
-  lenderSelection: {}s
+  }
 };
 
 // 🔐 Encode to Base64 so GitHub doesn’t corrupt JSON
