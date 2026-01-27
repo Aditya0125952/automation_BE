@@ -16,8 +16,10 @@ app.post('/run-automation', async (req, res) => {
     console.log("📨 RAW BODY FROM FE:", req.body);
     console.log("📧 EMAIL RECEIVED:", applicantOverrides.email);
 
-    const feData = JSON.stringify({
-      email: applicantOverrides.email
+   const feData = JSON.stringify({
+      applicantOverrides: {
+        email: applicantOverrides.email
+      }
     });
 
     console.log("🚀 SENDING TO GITHUB AS FE_DATA:", feData);
