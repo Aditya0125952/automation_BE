@@ -16,11 +16,15 @@ app.post('/run-automation', async (req, res) => {
     console.log("📨 RAW BODY FROM FE:", req.body);
     console.log("📧 EMAIL RECEIVED:", applicantOverrides.email);
 
-   const feData = JSON.stringify({
-      applicantOverrides: {
-        email: applicantOverrides.email
-      }
-    });
+   const rawData = {
+  applicantOverrides: {
+    email: applicantOverrides.email
+  },
+  lenderSelection: {}s
+};
+
+// 🔐 Encode to Base64 so GitHub doesn’t corrupt JSON
+const feData = Buffer.from(JSON.stringify(rawData)).toString('base64');
 
     console.log("🚀 SENDING TO GITHUB AS FE_DATA:", feData);
 
