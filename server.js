@@ -21,8 +21,8 @@ app.post('/run-automation', async (req, res) => {
   applicantOverrides: {
     email: applicantOverrides.email
   },
-  lenderOverrides:{
-    dcplan : lenderOverrides.dcplan || ""
+  lenderSelectionOverrides:{
+    dcplan : lenderOverrides.dcPlan || ""
   }
 };
 
@@ -51,7 +51,7 @@ const feData = Buffer.from(JSON.stringify(rawData)).toString('base64');
     const text = await response.text();
 
     if (response.status === 204) {
-      res.send('✅ Automation REALLY triggered in GitHub!');
+      res.send('✅ Automation script has triggered successfully!');
     } else {
       res.status(500).send(`❌ GitHub rejected request: ${text}`);
     }
