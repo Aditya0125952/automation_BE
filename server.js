@@ -12,6 +12,7 @@ app.use(express.json());
 app.post('/run-automation', async (req, res) => {
   try {
     const applicantOverrides = req.body.applicantOverrides || {};
+    const lenderOverrides = req.body.lenderSelectionOverrides || {};
 
     console.log("📨 RAW BODY FROM FE:", req.body);
     console.log("📧 EMAIL RECEIVED:", applicantOverrides.email);
@@ -19,6 +20,9 @@ app.post('/run-automation', async (req, res) => {
    const rawData = {
   applicantOverrides: {
     email: applicantOverrides.email
+  },
+  lenderOverrides:{
+    dcplan : lenderOverrides.dcplan || ""
   }
 };
 
