@@ -22,7 +22,10 @@ app.post('/run-automation', async (req, res) => {
     email: applicantOverrides.email
   },
   lenderSelectionOverrides:{
-    dcPlan : lenderOverrides.dcPlan || ""
+    merchant: lenderOverrides.merchant || "",
+    dcPlan: lenderOverrides.dcPlan || "",
+    requested_amount: lenderOverrides.requested_amount || "",
+    deposite_amount: lenderOverrides.deposite_amount || ""
   }
 };
 
