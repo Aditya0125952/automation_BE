@@ -13,7 +13,7 @@ app.post('/run-automation', async (req, res) => {
   try {
     const applicantOverrides = req.body.applicantOverrides || {};
     const lenderOverrides = req.body.lenderSelectionOverrides || {};
-    const instanceOverride = req.body.InstanceOverrides || {};
+    const instanceOverride = req.body.instanceOverrides || {};
 
     console.log("📨 RAW BODY FROM FE:", req.body);
     console.log("📧 EMAIL RECEIVED:", applicantOverrides.email);
@@ -28,7 +28,7 @@ app.post('/run-automation', async (req, res) => {
     requested_amount: lenderOverrides.requested_amount || "",
     deposite_amount: lenderOverrides.deposite_amount || ""
   },
-  InstanceOverrides:{
+  instanceOverrides:{
     rba : instanceOverride.rba || "",
     server : instanceOverride.server || ""
   }
